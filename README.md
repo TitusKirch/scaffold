@@ -56,6 +56,7 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
 | `.github/ISSUE_TEMPLATE/bug_report.yml`, `feature_request.yml`, `question.yml` | Links pointing to `TitusKirch/scaffold` |
 | `.github/pull_request_template.md`    | Example commit message in the title hint                                         |
 | `release-please-config.json`          | `packages["."]["package-name"]`                                                  |
+| `CLAUDE.md`                           | **Delete** and regenerate with `/init` in Claude Code — it's scaffold-specific  |
 
 > [!TIP]
 > A quick `grep -rn "TitusKirch/scaffold" .` catches every reference in one sweep.
