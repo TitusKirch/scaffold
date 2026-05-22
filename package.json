@@ -2,8 +2,22 @@
   "$schema": "https://www.schemastore.org/package.json",
   "name": "scaffold",
   "version": "0.0.0",
-  "private": true,
   "description": "Language-agnostic baseline template for new kirchDev repositories.",
+  "keywords": [
+    "template",
+    "github-template",
+    "scaffold",
+    "kirchdev",
+    "pnpm",
+    "oxlint",
+    "oxfmt",
+    "husky",
+    "commitlint",
+    "conventional-commits",
+    "release-please",
+    "dependabot",
+    "nodejs"
+  ],
   "homepage": "https://github.com/TitusKirch/scaffold#readme",
   "bugs": {
     "url": "https://github.com/TitusKirch/scaffold/issues"
