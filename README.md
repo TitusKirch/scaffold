@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧰 scaffold
+# 🏗️ scaffold
 
 **The kirchDev baseline — everything a new repo should ship with on day one, nothing more**
 
