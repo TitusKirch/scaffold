@@ -6,21 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `scaffold` is a **GitHub template repository**, not an application. It ships the meta layer (lint, format, commit hooks, CI, CodeQL, Dependabot, release-please, issue/PR templates, standard meta docs) that every new kirchDev repo should start with. There is no application code — the project code can be anything (PHP, Go, Rust, Vue, shell). Only the meta layer lives here.
 
-Implication: when changing files, ask "does this default make sense for *every* future repo created from this template?" — not just for one project type.
+Implication: when changing files, ask "does this default make sense for _every_ future repo created from this template?" — not just for one project type.
 
 ## Commands
 
-| Command            | What it does                                              |
-| :----------------- | :-------------------------------------------------------- |
-| `pnpm install`     | Install deps and wire husky hooks via the `prepare` script |
-| `pnpm lint`        | `oxlint . --deny-warnings`                                 |
-| `pnpm format`      | `oxfmt --check .` (note: `format` is the check, not fix)   |
-| `pnpm check`       | Runs `lint` + `format` — the CI gate                       |
-| `pnpm lint:fix`    | Auto-fix lint                                              |
-| `pnpm format:fix`  | Auto-fix format                                            |
-| `pnpm check:fix`   | Auto-fix lint + format                                     |
-| `pnpm taze`        | Interactive dependency upgrade check                       |
-| `pnpm taze:w`      | Write upgrade results                                      |
+| Command           | What it does                                               |
+| :---------------- | :--------------------------------------------------------- |
+| `pnpm install`    | Install deps and wire husky hooks via the `prepare` script |
+| `pnpm lint`       | `oxlint . --deny-warnings`                                 |
+| `pnpm format`     | `oxfmt --check .` (note: `format` is the check, not fix)   |
+| `pnpm check`      | Runs `lint` + `format` — the CI gate                       |
+| `pnpm lint:fix`   | Auto-fix lint                                              |
+| `pnpm format:fix` | Auto-fix format                                            |
+| `pnpm check:fix`  | Auto-fix lint + format                                     |
+| `pnpm taze`       | Interactive dependency upgrade check                       |
+| `pnpm taze:w`     | Write upgrade results                                      |
 
 There is no test suite — this is config-only. CI runs `pnpm lint` and `pnpm format` on PR.
 
@@ -30,7 +30,7 @@ There is no test suite — this is config-only. CI runs `pnpm lint` and `pnpm fo
 - **oxc, not eslint/prettier.** Linting via `oxlint`, formatting via `oxfmt`. Configs live in `.oxlintrc.json` / `.oxfmtrc.json`. `oxlint` uses `unicorn` + `oxc` plugins; rules deliberately minimal.
 - **Husky hooks** (`.husky/pre-commit`, `.husky/commit-msg`) run `lint-staged` and `commitlint`. `lint-staged.config.js` excludes `README.md` (free-form prose) and `pnpm-lock.yaml`. `oxlint --fix --deny-warnings` then `oxfmt` on JS; `oxfmt` only on JSON/YAML/MD.
 - **Conventional Commits enforced** via `@commitlint/config-conventional`. Don't `--no-verify` unless explicitly asked.
-- **release-please is included** (unlike many templates that omit it). Files: `release-please-config.json`, `.release-please-manifest.json`, `.github/workflows/release-please.yml`. Config uses `release-type: simple` (language-agnostic), `include-v-in-tag: true`. Downstream repos start at `0.0.0` and reset via the steps in README → *Resetting release-please*.
+- **release-please is included** (unlike many templates that omit it). Files: `release-please-config.json`, `.release-please-manifest.json`, `.github/workflows/release-please.yml`. Config uses `release-type: simple` (language-agnostic), `include-v-in-tag: true`. Downstream repos start at `0.0.0` and reset via the steps in README → _Resetting release-please_.
 - **Workflows** use `actions/checkout@v6`, `actions/setup-node@v6`, `pnpm/action-setup@v6`, `github/codeql-action/{init,analyze}@v4`. Keep these pinned to major versions; Dependabot bumps them monthly.
 - **CodeQL** scans `actions` + `javascript-typescript` with `security-extended,security-and-quality` queries, gated by path filters so non-code changes don't trigger it.
 - **Dependabot** groups all minor/patch updates per ecosystem into a single PR (`npm-minor-patch`, `actions-minor-patch`). Majors come as separate PRs.
