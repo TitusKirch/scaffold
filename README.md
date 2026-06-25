@@ -16,7 +16,7 @@ That's it. Click **Use this template** (or use `gh`), edit a handful of placehol
 
 ## ✨ What's in the box
 
-- **🟢 Node + pnpm pinned** — `.nvmrc` (Node 24), `.npmrc` (pnpm 11 with sane defaults), `package.json` with `packageManager`.
+- **🟢 Node + pnpm pinned** — `.nvmrc` (Node 24), `pnpm-workspace.yaml` (pnpm 11 with sane defaults), `package.json` with `packageManager`.
 - **🧹 Lint & format via oxc** — `.oxlintrc.json`, `.oxfmtrc.json`, single `pnpm check` gate.
 - **🪝 Commit hooks** — Husky + `lint-staged` + `commitlint` enforcing Conventional Commits.
 - **🤖 Dependency PRs** — Dependabot (npm weekly, actions monthly) + `taze.config.js` for interactive upgrades.
