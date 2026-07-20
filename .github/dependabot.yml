@@ -13,7 +13,7 @@ updates:
       default-days: 3
     labels:
       - 'dependencies'
-      - 'javascript'
+      - 'stack: javascript'
     groups:
       npm-minor-patch:
         patterns:
@@ -31,7 +31,7 @@ updates:
       default-days: 3
     labels:
       - 'dependencies'
-      - 'github-actions'
+      - 'stack: github-actions'
     groups:
       actions-minor-patch:
         patterns:
