@@ -24,6 +24,7 @@ That's it. Click **Use this template** (or use `gh`), edit a handful of placehol
 - **🛡️ GitHub workflows** — `ci.yml` (lint + format check on PR), `codeql.yml` (push/PR + weekly).
 - **📋 Issue / PR templates** — bug report, feature request, question (`.yml` forms) + PR checklist.
 - **📄 Standard meta** — `LICENSE`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`.
+- **🤖 Agent-ready** — `CLAUDE.md` + `AGENTS.md` (kept in sync), `.tituskirch-skills.json`, baseline `.claude/settings.json` permissions, `pnpm skills:update` wiring.
 
 The actual project code can be anything — PHP, Go, Rust, Vue, plain shell. `scaffold` only owns the meta layer that sits on top.
 
@@ -41,6 +42,21 @@ After clicking **Use this template**:
    git commit -m "chore: initial commit from scaffold"
    ```
 
+## 🤖 AI & skills
+
+Every repo from this template is agent-ready on day one:
+
+- **`CLAUDE.md` + `AGENTS.md`** — one set of guidance for Claude Code and vendor-neutral agent tools (Codex, OpenCode, Cursor, Copilot). Kept **byte-identical** — edit one, edit the other.
+- **`.claude/settings.json`** — baseline permissions: read-only git and the `pnpm` scripts are allowed; destructive git (`push`, `reset --hard`, `clean -f`, …) is denied.
+- **`.tituskirch-skills.json`** — configures the [TitusKirch skills](https://github.com/TitusKirch/skills) (commit, PR, issue, release, docs) per repo.
+
+Install the skill bundle, then keep project-scoped skills fresh:
+
+```bash
+pnpm dlx skills add TitusKirch/skills   # add the bundle — npx / yarn dlx / bunx work too
+pnpm skills:update                       # refresh project-scoped skills
+```
+
 ## 🧰 Customising the template
 
 Every file below references `TitusKirch/scaffold`, the maintainer's name, or the maintainer's email. Search-and-replace these to your repo's identity before the first push.
@@ -56,10 +72,13 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
 | `.github/ISSUE_TEMPLATE/bug_report.yml`, `feature_request.yml`, `question.yml` | Links pointing to `TitusKirch/scaffold` |
 | `.github/pull_request_template.md`    | Example commit message in the title hint                                         |
 | `release-please-config.json`          | `packages["."]["package-name"]`                                                  |
-| `CLAUDE.md`                           | **Delete** and regenerate with `/init` in Claude Code — it's scaffold-specific  |
+| `CLAUDE.md` + `AGENTS.md`             | **Delete both** and regenerate with `/init` in Claude Code — scaffold-specific, keep byte-identical |
 
 > [!TIP]
 > A quick `grep -rn "TitusKirch/scaffold" .` catches every reference in one sweep.
+
+> [!IMPORTANT]
+> **Private repo?** Two defaults are public-only. Delete `.github/workflows/codeql.yml` (CodeQL needs GitHub Advanced Security — free only on public repos), and swap the MIT `LICENSE` + README footer for a proprietary notice with `package.json` `"license": "UNLICENSED"`.
 
 ## 🔁 Resetting release-please
 
