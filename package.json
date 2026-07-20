@@ -36,6 +36,7 @@
     "format:fix": "oxfmt .",
     "check": "pnpm lint && pnpm format",
     "check:fix": "pnpm lint:fix && pnpm format:fix",
+    "skills:update": "pnpm dlx skills@latest update -p -y",
     "taze": "taze",
     "taze:w": "taze -w",
     "prepare": "husky"
