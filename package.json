@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.schemastore.org/package.json",
   "name": "scaffold",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Language-agnostic baseline template for new kirchDev repositories.",
   "keywords": [
     "commitlint",
