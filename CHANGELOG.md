@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/TitusKirch/scaffold/compare/v0.1.1...v0.1.2) (2026-07-20)
+
+
+### Bug Fixes
+
+* align dependabot labels to the stack: convention ([d867bc7](https://github.com/TitusKirch/scaffold/commit/d867bc7beef715f838366490a76b3cc45a70e223))
+
 ## [0.1.1](https://github.com/TitusKirch/scaffold/compare/v0.1.0...v0.1.1) (2026-05-27)
 
 
