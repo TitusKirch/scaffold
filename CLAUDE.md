@@ -73,6 +73,12 @@ Two things this file cannot do, by design: it cannot tell which branch a `git pu
 
 Downstream repos keep the `deny` list as-is and swap the `pnpm` lines in `allow` for whatever their stack runs.
 
+**Codex gets the same policy** in `.codex/rules/default.rules` — permission config is not portable, so the block list exists twice and **both must be changed together**. Codex uses Starlark `prefix_rule()` calls matching on argument *tokens*, which handles flags and shell chains that the `Bash(…)` prefix patterns miss, and every rule carries its own `match`/`not_match` cases. Check a rule with:
+
+```bash
+codex execpolicy check --pretty --rules .codex/rules/default.rules -- git push --force
+```
+
 ## Branching model
 
 The default here is a **`dev` integration branch**: branch off `dev`, PR into `dev`, roll `dev` up into `main`, and release-please releases from `main`. That is what most kirchDev repos run, so the template runs it too — a variant that ships switched off is a variant nobody notices is broken.
