@@ -69,7 +69,7 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
 | `CODE_OF_CONDUCT.md`                  | Enforcement contact email                                                        |
 | `CONTRIBUTING.md`                     | Every `TitusKirch/scaffold` link, the development setup section                  |
 | `SECURITY.md`                         | Advisory URL, contact email, scope wording                                       |
-| `.github/ISSUE_TEMPLATE/bug_report.yml`, `feature_request.yml`, `question.yml` | Links pointing to `TitusKirch/scaffold` |
+| `.github/ISSUE_TEMPLATE/*.yml`        | Generic as shipped. `config.yml` links questions/ideas/possible-bugs to the Discord forum — private repos without a forum drop that block; optionally add stack-specific version fields to `bug_report.yml` |
 | `.github/pull_request_template.md`    | Example commit message in the title hint                                         |
 | `release-please-config.json`          | `packages["."]["package-name"]`                                                  |
 | `CLAUDE.md` + `AGENTS.md`             | **Delete both** and regenerate with `/init` in Claude Code — scaffold-specific, keep byte-identical |

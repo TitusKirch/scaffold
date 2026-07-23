@@ -1,20 +1,23 @@
 name: 🐛 Bug report
-description: Something in the template isn't working as expected
+description: Report something that isn't working as expected
 labels: ['bug', 'triage']
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a bug. Please fill out the form below.
-        For security vulnerabilities, see [SECURITY.md](https://github.com/TitusKirch/scaffold/blob/main/SECURITY.md) instead.
+        Thanks for taking the time to file a report. Please fill out the form below so the problem can be reproduced quickly.
 
-  - type: input
-    id: file
+        **Security issue?** Don't open a public issue — follow the security policy in `SECURITY.md` instead.
+
+  - type: checkboxes
+    id: preflight
     attributes:
-      label: Affected file / template
-      placeholder: e.g. .github/workflows/ci.yml
-    validations:
-      required: true
+      label: Before you start
+      options:
+        - label: I searched existing issues and didn't find a duplicate
+          required: true
+        - label: This is not a security vulnerability (those follow `SECURITY.md`)
+          required: true
 
   - type: textarea
     id: what-happened
@@ -28,14 +31,40 @@ body:
     id: expected
     attributes:
       label: Expected behavior
+      description: What you expected to happen instead.
     validations:
       required: true
 
   - type: textarea
     id: reproduction
     attributes:
-      label: Reproduction
-      description: Step-by-step instructions or a minimal failing command sequence.
+      label: Steps to reproduce
+      description: A numbered list, or the smallest command sequence that triggers it.
+      placeholder: |
+        1. …
+        2. …
+        3. see error
+    validations:
+      required: true
+
+  - type: input
+    id: area
+    attributes:
+      label: Affected area / component
+      description: The file, module, command or feature involved — if you know it.
+      placeholder: e.g. the CLI, the auth module, .github/workflows/ci.yml
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Version & environment
+      description: The versions and platform this happens on.
+      placeholder: |
+        - Version / commit:
+        - Runtime (node / php / go / …):
+        - OS:
     validations:
       required: true
 
@@ -43,4 +72,4 @@ body:
     id: extra
     attributes:
       label: Anything else?
-      description: Logs, screenshots, related config, etc.
+      description: Logs, screenshots, related config, or a hunch about the cause.

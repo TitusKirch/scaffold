@@ -1,11 +1,11 @@
 <!--
 Thanks for contributing! Please fill out the sections below.
-Title should follow Conventional Commits (e.g. "feat: add release-please workflow").
+Title should follow Conventional Commits (e.g. "feat: add rate limiting").
 -->
 
 ## Summary
 
-<!-- What does this PR do? Why? -->
+<!-- What does this PR do, and why? -->
 
 ## Type of change
 
@@ -17,9 +17,10 @@ Title should follow Conventional Commits (e.g. "feat: add release-please workflo
 
 ## Checklist
 
-- [ ] `pnpm check` passes locally
-- [ ] Docs updated (README / CONTRIBUTING)
-- [ ] Commit messages follow Conventional Commits
+- [ ] The project's checks pass locally (lint / format / tests, as applicable)
+- [ ] Tests added or updated — or not applicable
+- [ ] Docs updated (README / inline help / comments) — or not applicable
+- [ ] Commits follow Conventional Commits
 
 ## Related issues
 

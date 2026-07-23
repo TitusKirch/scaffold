@@ -8,9 +8,9 @@ This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.
 
 ## Reporting issues
 
-- **Bugs**: open a [Bug report](https://github.com/TitusKirch/scaffold/issues/new?template=bug_report.yml) with a minimal reproduction if at all possible.
+- **Questions & ideas, or something that might be a bug**: start in the [Discord forum](https://discord.kirch.dev/) — that's where the low-friction, unconfirmed stuff lives.
+- **Confirmed bugs**: open a [Bug report](https://github.com/TitusKirch/scaffold/issues/new?template=bug_report.yml) with a minimal reproduction if at all possible.
 - **Feature requests**: open a [Feature request](https://github.com/TitusKirch/scaffold/issues/new?template=feature_request.yml).
-- **Questions**: open a [Question](https://github.com/TitusKirch/scaffold/issues/new?template=question.yml).
 - **Security vulnerabilities**: **do not** open a public issue. Follow [SECURITY.md](SECURITY.md).
 
 ## Development setup
