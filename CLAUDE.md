@@ -46,6 +46,28 @@ There is no test suite — this is config-only. CI runs `pnpm lint` and `pnpm fo
 - **`.tituskirch-skills.json`** configures the [TitusKirch skills](https://github.com/TitusKirch/skills) (commit, PR, issue, release, docs …) per repo. It is the runtime **config**, not an installer. Regenerate/reconcile it with the `tituskirch-skills-config` skill.
 - **Installing the skills.** The bundle is installed via the skills.sh CLI (`pnpm dlx skills add TitusKirch/skills`), not vendored into the repo. `pnpm skills:update` refreshes project-scoped skills tracked in `skills-lock.json` (only present once a repo actually installs project skills).
 
+## Branching model
+
+`scaffold` itself is **main-only** — branch off `main`, PR into `main`, release-please releases from `main`. Most kirchDev repos instead run a `dev` integration branch that rolls up into `main`, so the template ships that setup as an opt-in variant rather than as its own default.
+
+`template/` holds that variant. It mirrors the repo root, so every file in it shadows the path it will occupy:
+
+| `template/…` | At the root | Differs only in |
+| :------------------------------- | :------------------------------- | :-------------------------------------- |
+| `.github/dependabot.yml` | replaces the same path | `target-branch: 'dev'` per ecosystem |
+| `.tituskirch-skills.json` | replaces the same path | `pr.base` — `"dev"` instead of `"main"` |
+| `.github/workflows/dev-pr.yml` | **added**, nothing to replace | — |
+
+Nothing in `template/` is live: GitHub only reads `/.github/`, and the skills only read `/.tituskirch-skills.json`. `dev-pr.yml` opens and updates the rolling draft `dev` → `main` PR once it reaches `/.github/workflows/`.
+
+Apply the variant with `./apply-template.sh`, then create the branch and keep `main` as the repo's default. The script copies `template/` over the root recursively — note the trailing dot in its `cp -a template/. .`, since `template/*` would silently skip every dotfile, which here is all of them. A main-only repo just deletes `template/` and the script.
+
+Both replacing files are full copies, so **change one, change its counterpart** — the same rule that governs `CLAUDE.md` / `AGENTS.md`. Mind that `template/` is easy to forget precisely because it isn't next to what it shadows; for `template/.tituskirch-skills.json` this note is the only place the rule can be stated at all, since JSON takes no comments.
+
+Two things deliberately stay in the base config: `ci.yml` and `codeql.yml` list `dev` in their `on: branches:` filters. A branch filter naming a branch that doesn't exist is a no-op, so it costs nothing here and closes a real gap downstream — without it, PRs into `dev` (Dependabot's included) run no CI at all.
+
+This pattern covers **additive** variants only. Variants that are mostly deletions — see _Public vs private repos_ below — stay documented rather than vendored.
+
 ## Public vs private repos
 
 Some meta defaults only make sense for one visibility. When spinning up a repo from this template, adjust for its visibility:
