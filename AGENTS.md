@@ -4,7 +4,15 @@ This file provides guidance to AI coding agents — Claude Code (claude.ai/code)
 
 ## Agent instruction files
 
-`CLAUDE.md` and `AGENTS.md` are **kept byte-identical**. `CLAUDE.md` is what Claude Code reads; `AGENTS.md` is what vendor-neutral agent tools (Codex, OpenCode, Cursor, Copilot, …) read. They are not pointers to each other — they carry the same content. **When you change one, make the exact same change to the other** so the two never drift.
+`CLAUDE.md` and `AGENTS.md` are kept **byte-identical**. `CLAUDE.md` is what Claude Code reads; `AGENTS.md` is what vendor-neutral agent tools read — Codex, OpenCode, Cursor, Copilot, and whatever follows them. Two real files, deliberately not a symlink: not every tool resolves one.
+
+**After editing either file, copy it over the other — don't repeat the edit by hand:**
+
+```bash
+cp CLAUDE.md AGENTS.md   # or the reverse, whichever you just edited
+```
+
+Retyping a change is exactly how the two drift; one reflowed line or reworded clause is enough. `diff CLAUDE.md AGENTS.md` must print nothing. If it ever does, treat it as a defect and fix it by letting one file win wholesale — never by merging them.
 
 ## What this repo is
 
