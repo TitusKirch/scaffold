@@ -51,27 +51,21 @@ There is no test suite — this is config-only. CI runs `pnpm lint` and `pnpm fo
 The default here is a **`dev` integration branch**: branch off `dev`, PR into `dev`, roll `dev` up into `main`, and release-please releases from `main`. That is what most kirchDev repos run, so the template runs it too — a variant that ships switched off is a variant nobody notices is broken.
 
 > [!IMPORTANT]
-> A repo created from this template has the `dev` config but **no `dev` branch**. Create it before the first Dependabot run: with `target-branch: 'dev'` pointing at a branch that doesn't exist, Dependabot opens nothing at all. Repos that want main-only must instead run `./apply-template.sh` (below) — leaving the config as-is is the one option that silently does nothing.
+> A repo created from this template has the `dev` config but **no `dev` branch**. Create it before the first Dependabot run: with `target-branch: 'dev'` pointing at a branch that doesn't exist, Dependabot opens nothing at all. Going main-only (below) is a deliberate step too — leaving the config untouched is the one option that silently does nothing.
 
-`template/` holds the **main-only** variant. It mirrors the repo root, so every file in it shadows the path it replaces:
+`.github/workflows/dev-pr.yml` opens and updates the rolling draft `dev` → `main` PR. Mark that PR ready and **merge it with a merge commit, never a squash**: squashing collapses the individual `feat:`/`fix:` commits into the PR's own `chore:` title, and release-please then cuts nothing.
 
-| `template/…` | Replaces at the root | Differs only in |
-| :------------------------ | :------------------------ | :--------------------------------------- |
-| `.github/dependabot.yml` | same path | no `target-branch` — PRs go to `main` |
-| `.tituskirch-skills.json` | same path | `pr.base` — `"main"` instead of `"dev"` |
+Going **main-only** is three edits, all of them removals:
 
-Nothing in `template/` is live: GitHub only reads `/.github/`, and the skills only read `/.tituskirch-skills.json`.
+```bash
+rm .github/workflows/dev-pr.yml
+# .github/dependabot.yml    — drop both `target-branch: 'dev'` lines
+# .tituskirch-skills.json   — set `pr.base` to "main"
+```
 
-Apply it with `./apply-template.sh`, then delete the `dev` branch if one exists. Two details the script encodes:
+Nothing is vendored for this. A variant worth shipping as files is one that *adds* something — content that would otherwise be lost, the way `dev-pr.yml` itself would be. A variant that only deletes has nothing to preserve, so it stays documented, exactly like _Public vs private repos_ below.
 
-- `cp -a template/. .` — the trailing dot matters, since `template/*` would silently skip every dotfile, which here is all of them.
-- It also deletes `/.github/workflows/dev-pr.yml`. **This variant is subtractive**, and copying alone cannot remove a file — the one place the mirror model doesn't carry itself.
-
-`dev-pr.yml` opens and updates the rolling draft `dev` → `main` PR. Mark that PR ready and **merge it with a merge commit, never a squash**: squashing collapses the individual `feat:`/`fix:` commits into the PR's own `chore:` title, and release-please then cuts nothing.
-
-Both files in `template/` are full copies, so **change one, change its counterpart** — the same rule that governs `CLAUDE.md` / `AGENTS.md`. `template/` is easy to forget precisely because it doesn't sit next to what it shadows; for `template/.tituskirch-skills.json` this note is the only place the rule can be stated at all, since JSON takes no comments.
-
-`ci.yml` and `codeql.yml` list both `main` and `dev` in their `on: branches:` filters and stay untouched by the variant. A filter naming a branch that doesn't exist is a no-op, so it costs a main-only repo nothing — and without `dev` in `ci.yml`, PRs into `dev` (Dependabot's included) would run no CI at all.
+`ci.yml` and `codeql.yml` list both `main` and `dev` in their `on: branches:` filters and neither edit touches them. A filter naming a branch that doesn't exist is a no-op, so it costs a main-only repo nothing — and without `dev` in `ci.yml`, PRs into `dev` (Dependabot's included) would run no CI at all.
 
 Variants that are *purely* deletions — see _Public vs private repos_ below — stay documented rather than vendored; only this one earns the folder.
 
