@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Copies `template/` over the repo root, replacing the files it shadows, to
-# switch this repo onto a `dev` integration branch.
+# Switches this repo from the `dev` integration branch to a main-only workflow:
+# copies `template/` over the repo root and drops the dev-only workflow.
 # See CLAUDE.md → Branching model.
 
 set -euo pipefail
@@ -20,10 +20,14 @@ find template -type f | sed 's|^template/|  |' | sort
 # which is every file that actually needs replacing here.
 cp -a template/. .
 
+# The main-only variant also *removes* a file, which copying alone cannot do.
+echo "Removing:"
+echo "  .github/workflows/dev-pr.yml"
+rm -f .github/workflows/dev-pr.yml
+
 cat <<'EOF'
 
 Done. Remaining steps:
-  1. create the `dev` branch and push it
-  2. keep `main` as the repository's default branch
-  3. rm -rf template apply-template.sh
+  1. delete the `dev` branch if it already exists
+  2. rm -rf template apply-template.sh
 EOF

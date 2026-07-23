@@ -3,7 +3,7 @@
   "language": "en",
   "pr": {
     "backend": "github",
-    "base": "dev",
+    "base": "main",
     "title": {
       "convention": "conventional"
     }

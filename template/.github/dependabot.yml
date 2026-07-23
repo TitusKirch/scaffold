@@ -5,8 +5,6 @@ updates:
       prefix: 'fix(deps)'
       prefix-development: 'chore(deps-dev)'
     directory: '/'
-    # Open PRs against the dev branch (the integration branch), not main.
-    target-branch: 'dev'
     schedule:
       interval: 'weekly'
     # Mirror the npm `minimumReleaseAge` (3 days): hold updates back until a
@@ -29,7 +27,6 @@ updates:
     commit-message:
       prefix: 'chore(deps)'
     directory: '/'
-    target-branch: 'dev'
     schedule:
       interval: 'monthly'
     cooldown:

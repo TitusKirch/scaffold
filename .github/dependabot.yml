@@ -1,5 +1,5 @@
-# Dependabot opens its PRs against the default branch. Repos with a `dev`
-# integration branch replace this file from `template/` — see CLAUDE.md.
+# Dependabot opens its PRs against the `dev` integration branch, not the default
+# branch. Repos without a `dev` branch apply `template/` — see CLAUDE.md.
 version: 2
 updates:
   - package-ecosystem: 'npm'
@@ -7,6 +7,7 @@ updates:
       prefix: 'fix(deps)'
       prefix-development: 'chore(deps-dev)'
     directory: '/'
+    target-branch: 'dev'
     schedule:
       interval: 'weekly'
     # Mirror the npm `minimumReleaseAge` (3 days): hold updates back until a
@@ -29,6 +30,7 @@ updates:
     commit-message:
       prefix: 'chore(deps)'
     directory: '/'
+    target-branch: 'dev'
     schedule:
       interval: 'monthly'
     cooldown:
