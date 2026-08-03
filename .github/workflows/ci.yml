@@ -40,3 +40,6 @@ jobs:
 
       - name: Format check
         run: pnpm format
+
+      - name: Agent policy parity
+        run: pnpm check:policy

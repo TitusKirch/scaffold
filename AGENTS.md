@@ -27,7 +27,8 @@ Implication: when changing files, ask "does this default make sense for _every_ 
 | `pnpm install`      | Install deps and wire husky hooks via the `prepare` script |
 | `pnpm lint`         | `oxlint . --deny-warnings`                                 |
 | `pnpm format`       | `oxfmt --check .` (note: `format` is the check, not fix)   |
-| `pnpm check`        | Runs `lint` + `format` — the CI gate                       |
+| `pnpm check`        | Runs `lint` + `format` + `check:policy` — the CI gate       |
+| `pnpm check:policy` | Proves the two agent policy files ban the same commands    |
 | `pnpm lint:fix`     | Auto-fix lint                                              |
 | `pnpm format:fix`   | Auto-fix format                                            |
 | `pnpm check:fix`    | Auto-fix lint + format                                     |
@@ -35,7 +36,7 @@ Implication: when changing files, ask "does this default make sense for _every_ 
 | `pnpm taze`         | Interactive dependency upgrade check                       |
 | `pnpm taze:w`       | Write upgrade results                                      |
 
-There is no test suite — this is config-only. CI runs `pnpm lint` and `pnpm format` on PR.
+There is no test suite — this is config-only. CI runs `pnpm lint`, `pnpm format` and `pnpm check:policy` on PR.
 
 ## Architecture / conventions
 
@@ -78,6 +79,11 @@ Downstream repos keep the `deny` list as-is and swap the `pnpm` lines in `allow`
 ```bash
 codex execpolicy check --pretty --rules .codex/rules/default.rules -- git push --force
 ```
+
+**Parity between the two is machine-checked, not eyeballed.** `pnpm check:policy` (`scripts/check-policy-parity.js`, part of `pnpm check` and of CI) expands every `prefix_rule` into its concrete argv prefixes — the cartesian product over its alternation lists — and matches the two sets in both directions, so "we changed both files" becomes a number rather than a claim. Two things it encodes are worth knowing before editing either file:
+
+- **The languages differ, so a few gaps cannot be closed.** Claude Code matches a prefix of the command _string_; a `prefix_rule` matches whole argv _tokens_. `Bash(aws iam delete-:*)` therefore bans every delete verb AWS will ever ship, and the Codex side can only enumerate the ones it ships today. Such a difference is legal but must be **declared** — in the `DELIBERATE` list in the script and in the `.codex/rules/default.rules` header — and the check fails both on an undeclared one and on a declaration that has gone stale.
+- **Neither language normalises flag order or case.** `rm -rf /` and `rm -fr /` are separate bans; `rm -r -f /` and `redis-cli FlushAll` are neither, and enumerating permutations never ends. The check proves the two files list the **same spellings** — it does not claim the set of spellings is complete. Same caveat as the two below, and for the same reason.
 
 ## Branching model
 
