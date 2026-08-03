@@ -29,10 +29,7 @@
     "timeout": 600
   },
   "mergeDeps": {
-    "merge": false,
-    "confirm": "major",
-    "verify": "pnpm check",
-    "cap": 5
+    "merge": "grouped"
   },
   "pruneBranches": {
     "age": 90,
@@ -51,7 +48,7 @@
     }
   },
   "docs": {
-    "preset": "library"
+    "preset": "package"
   },
   "work": {
     "tracker": "github",
