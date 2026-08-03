@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/TitusKirch/scaffold/compare/v0.2.0...v0.3.0) (2026-08-03)
+
+
+### Features
+
+* check the two agent policy files ban the same commands ([94b7668](https://github.com/TitusKirch/scaffold/commit/94b7668cfbb42a6fca8507533a08338225a4c5d8)), closes [#38](https://github.com/TitusKirch/scaffold/issues/38)
+
+
+### Bug Fixes
+
+* align the command bans across the two agent policy files ([98cc059](https://github.com/TitusKirch/scaffold/commit/98cc0599533e8a5fa260e88603c8ee8a329f85b9)), closes [#38](https://github.com/TitusKirch/scaffold/issues/38)
+* **ci:** read the Queue App PEM from this owner's own -ci mirror ([42cc46c](https://github.com/TitusKirch/scaffold/commit/42cc46c0f21805b010fdb3389c897346be18dd15))
+
 ## [0.2.0](https://github.com/TitusKirch/scaffold/compare/v0.1.2...v0.2.0) (2026-07-26)
 
 
