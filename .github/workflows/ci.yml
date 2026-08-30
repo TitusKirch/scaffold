@@ -41,5 +41,8 @@ jobs:
       - name: Format check
         run: pnpm format
 
+      - name: Typecheck
+        run: pnpm typecheck
+
       - name: Agent policy parity
         run: pnpm check:policy

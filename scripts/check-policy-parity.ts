@@ -35,13 +35,18 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CLAUDE_FILE = '.claude/settings.json';
 const CODEX_FILE = '.codex/rules/default.rules';
 
+type Deliberate = {
+  deny: string;
+  reason: string;
+};
+
 /**
  * Claude `deny` entries that no `prefix_rule` can express, each with the
  * reason it stays open. An entry here still has to be a *structural*
  * difference — one the Codex side extends but cannot close. A stale entry
  * fails the check rather than lingering as a false claim.
  */
-const DELIBERATE = [
+const DELIBERATE: Deliberate[] = [
   {
     deny: 'Bash(aws iam delete-:*)',
     reason:
@@ -53,12 +58,44 @@ const DELIBERATE = [
   }
 ];
 
-function read(file) {
+/** A parsed Claude `Bash(...)` deny entry. */
+type ClaudeEntry = {
+  /** The entry exactly as written in the deny list. */
+  raw: string;
+  /** The command prefix, with any trailing `:*` removed. */
+  prefix: string;
+  /** Whether the entry ended in `:*` and so matches open-endedly. */
+  open: boolean;
+  /** The prefix split into argv tokens. */
+  tokens: string[];
+};
+
+/** One concrete argv prefix expanded out of a `prefix_rule` pattern. */
+type CodexPrefix = {
+  tokens: string[];
+  command: string;
+};
+
+/** A forbidding `prefix_rule` block and the prefixes it expands to. */
+type CodexRule = {
+  line: number;
+  prefixes: CodexPrefix[];
+};
+
+/** A `prefix_rule` pattern slot: one fixed token, or a set of alternatives. */
+type PatternSlot = string | string[];
+
+function read(file: string): string {
   return readFileSync(join(root, file), 'utf8');
 }
 
 /** Slice the balanced `open`…`close` run starting at `start`. */
-function sliceBalanced(text, start, open, close) {
+function sliceBalanced(
+  text: string,
+  start: number,
+  open: string,
+  close: string
+): string | null {
   let depth = 0;
   for (let i = start; i < text.length; i += 1) {
     if (text[i] === open) {
@@ -73,15 +110,21 @@ function sliceBalanced(text, start, open, close) {
   return null;
 }
 
-function lineOf(text, index) {
+function lineOf(text: string, index: number): number {
   return text.slice(0, index).split('\n').length;
 }
 
 /** Every `Bash(...)` entry in the deny list, as a prefix plus its tokens. */
-function parseClaudeDeny(text) {
-  const denied = JSON.parse(text).permissions?.deny ?? [];
-  const entries = [];
-  const unparsed = [];
+function parseClaudeDeny(text: string): {
+  entries: ClaudeEntry[];
+  unparsed: string[];
+} {
+  const parsed = JSON.parse(text) as {
+    permissions?: { deny?: string[] };
+  };
+  const denied = parsed.permissions?.deny ?? [];
+  const entries: ClaudeEntry[] = [];
+  const unparsed: string[] = [];
 
   for (const raw of denied) {
     const match = /^Bash\((?<spec>.*)\)$/s.exec(raw);
@@ -90,7 +133,7 @@ function parseClaudeDeny(text) {
       continue;
     }
 
-    const spec = match.groups.spec;
+    const spec = match.groups!.spec!;
     const open = spec.endsWith(':*');
     const prefix = open ? spec.slice(0, -2) : spec;
     entries.push({ raw, prefix, open, tokens: prefix.split(' ') });
@@ -100,8 +143,8 @@ function parseClaudeDeny(text) {
 }
 
 /** The cartesian product of a pattern's slots, each an argv token run. */
-function expand(pattern) {
-  let rows = [[]];
+function expand(pattern: PatternSlot[]): string[][] {
+  let rows: string[][] = [[]];
   for (const slot of pattern) {
     const options = Array.isArray(slot) ? slot : [slot];
     rows = rows.flatMap((row) => options.map((token) => [...row, token]));
@@ -110,10 +153,10 @@ function expand(pattern) {
 }
 
 /** Every forbidding `prefix_rule`, expanded into concrete argv prefixes. */
-function parseCodexRules(text) {
-  const rules = [];
+function parseCodexRules(text: string): CodexRule[] {
+  const rules: CodexRule[] = [];
   const finder = /prefix_rule\s*\(/g;
-  let found;
+  let found: RegExpExecArray | null;
 
   while ((found = finder.exec(text)) !== null) {
     const parenAt = found.index + found[0].length - 1;
@@ -142,7 +185,9 @@ function parseCodexRules(text) {
       );
     }
 
-    const pattern = JSON.parse(literal.replaceAll(/,(?=\s*[\]}])/g, ''));
+    const pattern = JSON.parse(
+      literal.replaceAll(/,(?=\s*[\]}])/g, '')
+    ) as PatternSlot[];
     rules.push({
       line: lineOf(text, found.index),
       prefixes: expand(pattern).map((tokens) => ({
@@ -156,14 +201,14 @@ function parseCodexRules(text) {
 }
 
 /** Does a Claude entry ban this whole command string? */
-function claudeCovers(entry, command) {
+function claudeCovers(entry: ClaudeEntry, command: string): boolean {
   return entry.open
     ? command.startsWith(entry.prefix)
     : command === entry.prefix;
 }
 
 /** Are `tokens` a leading run of `of`? */
-function isTokenPrefix(tokens, of) {
+function isTokenPrefix(tokens: string[], of: string[]): boolean {
   return (
     tokens.length <= of.length && tokens.every((token, i) => token === of[i])
   );
@@ -184,8 +229,8 @@ const missingFromClaude = prefixes.filter(
 
 // Claude denies it — does Codex? A miss the Codex side merely *extends* is
 // structural: enumeration cannot close a Claude entry that ends mid-token.
-const missingFromCodex = [];
-const structural = [];
+const missingFromCodex: ClaudeEntry[] = [];
+const structural: { entry: ClaudeEntry; extending: CodexPrefix[] }[] = [];
 
 for (const entry of denies) {
   if (prefixes.some((prefix) => isTokenPrefix(prefix.tokens, entry.tokens))) {
@@ -213,7 +258,7 @@ const stale = DELIBERATE.filter(
   (item) => !structural.some((found) => found.entry.raw === item.deny)
 );
 
-const problems = [];
+const problems: string[] = [];
 
 console.log(
   `${CLAUDE_FILE}: ${denies.length} deny entries\n` +
@@ -281,7 +326,7 @@ if (problems.length > 0) {
     console.log(`Deliberate structural differences — ${structural.length}:`);
     for (const item of structural) {
       console.log(`  ${item.entry.raw}`);
-      console.log(`    ${declared.get(item.entry.raw).reason}`);
+      console.log(`    ${declared.get(item.entry.raw)!.reason}`);
       console.log(
         `    Codex enumerates ${item.extending.length}: ` +
           `${item.extending.map((p) => p.tokens.at(-1)).join(', ')}`
