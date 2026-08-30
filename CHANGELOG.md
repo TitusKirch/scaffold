@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/TitusKirch/scaffold/compare/v0.4.0...v0.4.1) (2026-08-30)
+
+
+### Bug Fixes
+
+* **pnpm:** drop the two settings pnpm never read ([e43f838](https://github.com/TitusKirch/scaffold/commit/e43f838cd86967b5a5d5933d625244b6bea3e3d4)), closes [#52](https://github.com/TitusKirch/scaffold/issues/52)
+
 ## [0.4.0](https://github.com/TitusKirch/scaffold/compare/v0.3.0...v0.4.0) (2026-08-30)
 
 
