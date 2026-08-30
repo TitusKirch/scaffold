@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://github.com/TitusKirch/scaffold/compare/v0.3.0...v0.4.0) (2026-08-30)
+
+
+### Features
+
+* **queue:** cut the queue branch on the first worker PR ([#44](https://github.com/TitusKirch/scaffold/issues/44)) ([aa27382](https://github.com/TitusKirch/scaffold/commit/aa27382324b1d062691f7fa5889475e804b869de))
+* **scripts:** migrate the meta scripts to TypeScript ([8e9e87d](https://github.com/TitusKirch/scaffold/commit/8e9e87d63410946f61377ccc3430a3415bc576de)), closes [#49](https://github.com/TitusKirch/scaffold/issues/49)
+
+
+### Bug Fixes
+
+* **ci:** let the queue PR body wrap itself ([c212fd6](https://github.com/TitusKirch/scaffold/commit/c212fd63d183e765617b80bbba69045895b40640))
+
 ## [0.3.0](https://github.com/TitusKirch/scaffold/compare/v0.2.0...v0.3.0) (2026-08-03)
 
 
