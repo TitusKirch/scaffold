@@ -30,12 +30,13 @@ pnpm install   # wires husky hooks
 
 ## Running the suite
 
-| Command          | What it does                              |
-| :--------------- | :---------------------------------------- |
-| `pnpm lint`      | oxlint across the repo.                   |
-| `pnpm format`    | oxfmt check across JS / JSON / YAML / MD. |
-| `pnpm check`     | Runs `lint` and `format`.                 |
-| `pnpm check:fix` | Auto-fix lint + format issues.            |
+| Command          | What it does                                           |
+| :--------------- | :----------------------------------------------------- |
+| `pnpm lint`      | oxlint across the repo.                                |
+| `pnpm format`    | oxfmt check across JS / TS / JSON / YAML / MD.         |
+| `pnpm typecheck` | `tsc --noEmit` over the meta scripts.                  |
+| `pnpm check`     | Runs `lint`, `format`, `typecheck` and `check:policy`. |
+| `pnpm check:fix` | Auto-fix lint + format issues.                         |
 
 The same commands run in CI — keep them green before you push.
 
