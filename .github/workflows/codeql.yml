@@ -21,4 +21,4 @@ jobs:
       packages: read
       actions: read
       contents: read
-    uses: kirchDev/workflows/.github/workflows/_codeql.yml@aa8e987 # v0.1.0
+    uses: kirchDev/workflows/.github/workflows/_codeql.yml@aa8e987671b566e3649899a923a8016322601156 # v0.1.0
