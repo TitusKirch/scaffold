@@ -10,6 +10,12 @@ on:
       - main
       - dev
     types: [opened, synchronize, reopened, ready_for_review]
+    # A change touching only prose cannot break a lint or a typecheck. Workflows
+    # are NOT excluded — a repo whose gate lints them needs them to trigger.
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - LICENSE
 
 permissions:
   contents: read
@@ -17,4 +23,4 @@ permissions:
 jobs:
   check:
     name: CI
-    uses: kirchDev/workflows/.github/workflows/_ci-check.yml@aa8e987671b566e3649899a923a8016322601156 # v0.1.0
+    uses: kirchDev/workflows/.github/workflows/_ci-check.yml@f47f598f549a3c97924fdfd00f15371ea557e1aa # v0.1.1
