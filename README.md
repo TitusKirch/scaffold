@@ -22,7 +22,7 @@ That's it. Click **Use this template** (or use `gh`), edit a handful of placehol
 - **🪝 Commit hooks** — Husky + `lint-staged` + `commitlint` enforcing Conventional Commits.
 - **🤖 Dependency PRs** — Dependabot (npm weekly, actions monthly) + `taze.config.ts` for interactive upgrades.
 - **🔁 release-please** — full workflow + config + manifest so the new repo can publish from its first commit.
-- **🛡️ GitHub workflows** — `ci.yml` (lint + format + typecheck + policy parity on PR), `codeql.yml` (push/PR + weekly).
+- **🛡️ GitHub workflows as calls** — six stubs pointing at central bodies in [`kirchDev/workflows`](https://github.com/kirchDev/workflows): CI, CodeQL, release-please, the promotion PR and the two queue workflows. 151 lines of trigger instead of 727 of copied pipeline, and a central fix arrives by Dependabot bump.
 - **📋 Issue / PR templates** — bug report, feature request, question (`.yml` forms) + PR checklist.
 - **📄 Standard meta** — `LICENSE`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`.
 - **🤖 Agent-ready** — `CLAUDE.md` + `AGENTS.md` (kept in sync), `.tituskirch-skills.json`, baseline `.claude/settings.json` permissions, `pnpm skills:update` wiring.
@@ -79,7 +79,7 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
 > A quick `grep -rn "TitusKirch/scaffold" .` catches every reference in one sweep.
 
 > [!IMPORTANT]
-> **Private repo?** Two defaults are public-only. Delete `.github/workflows/codeql.yml` (CodeQL needs GitHub Advanced Security — free only on public repos), and swap the MIT `LICENSE` + README footer for a proprietary notice with `package.json` `"license": "UNLICENSED"`.
+> **Private repo?** Three defaults are public-only. Delete `.github/workflows/codeql.yml` (CodeQL needs GitHub Advanced Security — free only on public repos), swap the MIT `LICENSE` + README footer for a proprietary notice with `package.json` `"license": "UNLICENSED"`, and note that the workflow bodies live in a **public** repository — a private repo can still call them, but the reverse is not true.
 
 ## 🔁 Resetting release-please
 
