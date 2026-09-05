@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.5.0](https://github.com/TitusKirch/scaffold/compare/v0.4.1...v0.5.0) (2026-09-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* move to pnpm 12
+* this repository now requires pnpm 12.
+
+### Features
+
+* **ci:** call the central workflow bodies instead of copying them ([da79517](https://github.com/TitusKirch/scaffold/commit/da7951759db88d7eaabfac463d8b7ac300b74337))
+
+
+### Bug Fixes
+
+* **ci:** bump the workflow bodies to v0.1.3 ([7170863](https://github.com/TitusKirch/scaffold/commit/717086347b25fc4ad9508bae9a3a1c8c30037087))
+* **ci:** pin the bodies to the full commit SHA ([eaebcee](https://github.com/TitusKirch/scaffold/commit/eaebcee574f6c36b303cc3f8fdcbd05bb73a831c))
+* **ci:** pin the workflow bodies to v0.2.0 and drop paths-ignore ([b39f9a4](https://github.com/TitusKirch/scaffold/commit/b39f9a4df3648fa6857ee05db6a39bb31848cf06))
+* **ci:** pin the workflow bodies to v0.5.0 ([311cfcb](https://github.com/TitusKirch/scaffold/commit/311cfcb52bac70139dddbbc1a7354ba4e39a89d5))
+* **ci:** pin the workflow bodies to v0.7.0 ([2707755](https://github.com/TitusKirch/scaffold/commit/27077553a245f0f08b4f86144280a12eb5c4da7d))
+* **ci:** scan once per change and skip prose-only runs ([b154454](https://github.com/TitusKirch/scaffold/commit/b1544549f50bdb2f2db6d757b50b225d3e3a9c0d))
+
+
+### Reverts
+
+* go back to pnpm 11.25.0 ([a41d833](https://github.com/TitusKirch/scaffold/commit/a41d833176fa27d88914207ec88c682a104338aa))
+
+
+### Miscellaneous Chores
+
+* move to pnpm 12 ([aa91982](https://github.com/TitusKirch/scaffold/commit/aa9198224b9e2f91b013156f7943f4fc2cfc2acc))
+* move to pnpm 12 ([90665e0](https://github.com/TitusKirch/scaffold/commit/90665e0e7b9cedeb9bdf9945926c4e19cdec1c50))
+
 ## [0.4.1](https://github.com/TitusKirch/scaffold/compare/v0.4.0...v0.4.1) (2026-08-30)
 
 
