@@ -14,6 +14,20 @@ gh repo create my-new-repo --template TitusKirch/scaffold
 
 That's it. Click **Use this template** (or use `gh`), edit a handful of placeholders, and the meta layer — lint, format, commit hooks, CI, CodeQL, Dependabot, release-please — is already wired up.
 
+## 🚀 Setup
+
+After clicking **Use this template**:
+
+1. Clone your new repo.
+2. Replace the placeholders listed in [Customising the template](#-customising-the-template).
+3. Reset release-please as described in [Resetting release-please](#-resetting-release-please).
+4. `pnpm install` — Husky activates the hooks via the `prepare` script.
+5. Add your project code and ship the first commit:
+
+   ```bash
+   git commit -m "chore: initial commit from scaffold"
+   ```
+
 ## ✨ What's in the box
 
 - **🟢 Node + pnpm pinned** — `.nvmrc` (Node 24), `pnpm-workspace.yaml` (pnpm 12 with sane defaults), `package.json` with `packageManager`.
@@ -28,20 +42,6 @@ That's it. Click **Use this template** (or use `gh`), edit a handful of placehol
 - **🤖 Agent-ready** — `AGENTS.md`, `.tituskirch-skills.json`, baseline `.claude/settings.json` permissions, `pnpm skills:update` wiring.
 
 The actual project code can be anything — PHP, Go, Rust, Vue, plain shell. `scaffold` only owns the meta layer that sits on top.
-
-## 🚀 Setup
-
-After clicking **Use this template**:
-
-1. Clone your new repo.
-2. Replace the placeholders listed in [Customising the template](#-customising-the-template).
-3. Reset release-please as described in [Resetting release-please](#-resetting-release-please).
-4. `pnpm install` — Husky activates the hooks via the `prepare` script.
-5. Add your project code and ship the first commit:
-
-   ```bash
-   git commit -m "chore: initial commit from scaffold"
-   ```
 
 ## 🤖 AI & skills
 
@@ -85,6 +85,9 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
 
 `scaffold`'s manifest carries the template's own version, so a new repo resets it before its first release — release-please then proposes a first release PR after your first conventional commit on `main`:
 
+<details>
+<summary>The six reset steps</summary>
+
 1. **Manifest** — set `.release-please-manifest.json` to `{ ".": "0.0.0" }` and `package.json` `version` to `0.0.0` (`release-type: node` bumps both).
 2. **Changelog** — delete the inherited `CHANGELOG.md`.
 3. **Config** — update `release-please-config.json` → `packages["."]["package-name"]` to your repo name.
@@ -98,6 +101,8 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
    …and clear any stale entries on the GitHub **Releases** tab.
 
 6. **First commit** — push a Conventional Commit on `main` (`feat: …`, `fix: …`). release-please opens the initial release PR; merge it and your first tagged release ships.
+
+</details>
 
 ## 💡 Why "scaffold" and not "template-\*"
 
