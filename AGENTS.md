@@ -2,6 +2,8 @@
 
 A **GitHub template repository**: the meta layer (lint, format, hooks, CI, CodeQL, Dependabot, release-please, issue/PR templates, meta docs) every new kirchDev repo starts with. There is no application code, and downstream code can be any stack — so every default must make sense for _every_ repo created from it, not one project type.
 
+Why each default is set the way it is — the reasoning these rules leave out — is in `docs/1.concepts/`.
+
 ## Commands
 
 `pnpm check` is the gate (`lint` + `format` + `typecheck` + `check:policy`); CI runs the same script. There is no test suite. `pnpm format` only checks — fix with `pnpm format:fix` or `pnpm check:fix`. Every script: `package.json`.

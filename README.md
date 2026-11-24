@@ -74,6 +74,7 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
 | `.github/pull_request_template.md`    | Example commit message in the title hint                                         |
 | `release-please-config.json`          | `packages["."]["package-name"]`                                                  |
 | `AGENTS.md`                           | **Rewrite** for the new repo — scaffold-specific. Keep the name: a `CLAUDE.md` beside it stops Claude Code from reading it |
+| `docs/`                               | Explains the template's own defaults — keep while they hold, replace as the repo's own docs grow |
 
 > [!TIP]
 > A quick `grep -rn "TitusKirch/scaffold" .` catches every reference in one sweep.
