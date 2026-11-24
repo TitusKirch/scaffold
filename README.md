@@ -25,7 +25,7 @@ That's it. Click **Use this template** (or use `gh`), edit a handful of placehol
 - **🛡️ GitHub workflows as calls** — six stubs pointing at central bodies in [`kirchDev/workflows`](https://github.com/kirchDev/workflows): CI, CodeQL, release-please, the promotion PR and the two queue workflows. 151 lines of trigger instead of 727 of copied pipeline, and a central fix arrives by Dependabot bump.
 - **📋 Issue / PR templates** — bug report, feature request, question (`.yml` forms) + PR checklist.
 - **📄 Standard meta** — `LICENSE`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`.
-- **🤖 Agent-ready** — `CLAUDE.md` + `AGENTS.md` (kept in sync), `.tituskirch-skills.json`, baseline `.claude/settings.json` permissions, `pnpm skills:update` wiring.
+- **🤖 Agent-ready** — `AGENTS.md`, `.tituskirch-skills.json`, baseline `.claude/settings.json` permissions, `pnpm skills:update` wiring.
 
 The actual project code can be anything — PHP, Go, Rust, Vue, plain shell. `scaffold` only owns the meta layer that sits on top.
 
@@ -47,7 +47,7 @@ After clicking **Use this template**:
 
 Every repo from this template is agent-ready on day one:
 
-- **`CLAUDE.md` + `AGENTS.md`** — one set of guidance for Claude Code and vendor-neutral agent tools (Codex, OpenCode, Cursor, Copilot). Kept **byte-identical** — edit one, edit the other.
+- **`AGENTS.md`** — one set of guidance for Claude Code and vendor-neutral agent tools (Codex, OpenCode, Cursor, Copilot). Claude Code reads it only while no `CLAUDE.md` sits beside or above it.
 - **`.claude/settings.json`** — baseline permissions: read-only git and the `pnpm` scripts are allowed; destructive git (`push`, `reset --hard`, `clean -f`, …) is denied.
 - **`.tituskirch-skills.json`** — configures the [TitusKirch skills](https://github.com/TitusKirch/skills) (commit, PR, issue, release, docs) per repo.
 
@@ -73,7 +73,7 @@ Every file below references `TitusKirch/scaffold`, the maintainer's name, or the
 | `.github/ISSUE_TEMPLATE/*.yml`        | Generic as shipped. `config.yml` links questions/ideas/possible-bugs to the Discord forum — private repos without a forum drop that block; optionally add stack-specific version fields to `bug_report.yml` |
 | `.github/pull_request_template.md`    | Example commit message in the title hint                                         |
 | `release-please-config.json`          | `packages["."]["package-name"]`                                                  |
-| `CLAUDE.md` + `AGENTS.md`             | **Delete both** and regenerate with `/init` in Claude Code — scaffold-specific, keep byte-identical |
+| `AGENTS.md`                           | **Rewrite** for the new repo — scaffold-specific. Keep the name: a `CLAUDE.md` beside it stops Claude Code from reading it |
 
 > [!TIP]
 > A quick `grep -rn "TitusKirch/scaffold" .` catches every reference in one sweep.
