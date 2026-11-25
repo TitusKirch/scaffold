@@ -41,7 +41,7 @@ Every `.github/workflows/*.yml` is a stub calling a body in [`kirchDev/workflows
 ## Public vs private repos
 
 - **CodeQL** needs GitHub Advanced Security, free only on public repos. A private repo without GHAS deletes `codeql.yml` (likewise other GHAS-gated features).
-- **License:** public ships MIT (`LICENSE` + README footer). Private removes both and sets `"license": "UNLICENSED"` and `"private": true` in `package.json`.
+- **License:** public ships MIT (`LICENSE` + README footer). Private removes both and sets `"license": "UNLICENSED"` in `package.json`; `"private": true` already ships with the template.
 - **Discord:** `.github/ISSUE_TEMPLATE/config.yml` routes questions, ideas and possible bugs to the repo's Discord forum. A private repo has none — drop `contact_links`, optionally add a `question.yml`.
 
 ## Agent setup
