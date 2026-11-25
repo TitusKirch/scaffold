@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.6.0](https://github.com/TitusKirch/scaffold/compare/v0.5.0...v0.6.0) (2026-11-25)
+
+
+### Features
+
+* **agents:** keep AGENTS.md as the only agent instruction file ([2593902](https://github.com/TitusKirch/scaffold/commit/25939022201adb6920415d9fc5a32e4f61b4ae53))
+* **docs:** explain the template's defaults in concept pages ([1417595](https://github.com/TitusKirch/scaffold/commit/14175953ccf95246f89b6c46f57f85e52817fb91))
+
+
+### Bug Fixes
+
+* **agents:** cut AGENTS.md to its rules and correct stale facts ([abf011c](https://github.com/TitusKirch/scaffold/commit/abf011c6e4529c1d59aacdee3fa75393e3b071a1))
+* **config:** mark the template package private again ([05f6f06](https://github.com/TitusKirch/scaffold/commit/05f6f0634efe6fcc81b9948dc85498f7bf4eefc5))
+* **contributing:** branch off dev and say when Claude Code loads AGENTS.md ([8f6e079](https://github.com/TitusKirch/scaffold/commit/8f6e0797df0d8343b932c401fe94e91543e4f66a))
+* **deps:** update fast-uri to 3.1.9 ([fdc08d6](https://github.com/TitusKirch/scaffold/commit/fdc08d67d8ccc5e457233a69780949048898aec8))
+* **readme:** correct pnpm, permission and release-please reset facts ([33355f1](https://github.com/TitusKirch/scaffold/commit/33355f1404493aaed84aefc7eee4c335fe7e6959))
+
 ## [0.5.0](https://github.com/TitusKirch/scaffold/compare/v0.4.1...v0.5.0) (2026-10-12)
 
 
